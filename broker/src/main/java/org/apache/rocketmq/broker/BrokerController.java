@@ -110,10 +110,15 @@ public class BrokerController {
     private static final InternalLogger log = InternalLoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
     private static final InternalLogger LOG_PROTECTION = InternalLoggerFactory.getLogger(LoggerName.PROTECTION_LOGGER_NAME);
     private static final InternalLogger LOG_WATER_MARK = InternalLoggerFactory.getLogger(LoggerName.WATER_MARK_LOGGER_NAME);
+    // Broker（中间者）配置
     private final BrokerConfig brokerConfig;
+    // 服务端netty配置
     private final NettyServerConfig nettyServerConfig;
+    // 客户端netty配置
     private final NettyClientConfig nettyClientConfig;
+    // 消息存储配置
     private final MessageStoreConfig messageStoreConfig;
+    // 消费者偏移量管理
     private final ConsumerOffsetManager consumerOffsetManager;
     private final ConsumerManager consumerManager;
     private final ConsumerFilterManager consumerFilterManager;
