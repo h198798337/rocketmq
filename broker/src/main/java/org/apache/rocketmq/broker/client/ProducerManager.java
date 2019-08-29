@@ -47,6 +47,11 @@ public class ProducerManager {
     public ProducerManager() {
     }
 
+    /**
+     * 获取组通道表
+     *
+     * @return
+     */
     public HashMap<String, HashMap<Channel, ClientChannelInfo>> getGroupChannelTable() {
         HashMap<String /* group name */, HashMap<Channel, ClientChannelInfo>> newGroupChannelTable =
             new HashMap<String, HashMap<Channel, ClientChannelInfo>>();

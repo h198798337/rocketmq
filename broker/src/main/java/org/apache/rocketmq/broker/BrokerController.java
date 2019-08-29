@@ -120,8 +120,11 @@ public class BrokerController {
     private final MessageStoreConfig messageStoreConfig;
     // 消费者偏移量管理
     private final ConsumerOffsetManager consumerOffsetManager;
+    // 消费者管理器
     private final ConsumerManager consumerManager;
+    // 消费者过滤器管理器
     private final ConsumerFilterManager consumerFilterManager;
+    // 生产者管理器
     private final ProducerManager producerManager;
     private final ClientHousekeepingService clientHousekeepingService;
     private final PullMessageProcessor pullMessageProcessor;

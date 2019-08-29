@@ -47,8 +47,11 @@ public class StoreCheckpoint {
 
         if (fileExists) {
             log.info("store checkpoint file exists, " + scpPath);
+            // commitlog偏移值
             this.physicMsgTimestamp = this.mappedByteBuffer.getLong(0);
+            // ConsumeQueue偏移值
             this.logicsMsgTimestamp = this.mappedByteBuffer.getLong(8);
+            // 索引文件偏移值
             this.indexMsgTimestamp = this.mappedByteBuffer.getLong(16);
 
             log.info("store checkpoint file physicMsgTimestamp " + this.physicMsgTimestamp + ", "
