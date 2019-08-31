@@ -58,7 +58,7 @@ public class IntegrationTestBase {
     protected static Random random = new Random();
 
     static {
-
+        // 单元测试结束后，清理临时文件的钩子
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
