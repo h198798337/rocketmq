@@ -34,6 +34,7 @@ public class RealTest {
         nsAddr = "127.0.0.1:9876";
         logger.info(String.format("use topic: %s;", topic));
         producer = new RMQNormalProducer(nsAddr, topic, false);
+        producer.getProducer().setSendMsgTimeout(30000);
         producer.setDebug();
         consumer = ConsumerFactory.getRMQNormalConsumer(nsAddr, "consumerGroup",
             topic, "*", new RMQNormalListener(), false);

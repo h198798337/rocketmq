@@ -533,6 +533,12 @@ public class CommitLog {
         return beginTimeInLock;
     }
 
+    /**
+     * 投放消息
+     *
+     * @param msg
+     * @return
+     */
     public PutMessageResult putMessage(final MessageExtBrokerInner msg) {
         // Set the storage time
         msg.setStoreTimestamp(System.currentTimeMillis());
@@ -987,6 +993,7 @@ public class CommitLog {
                     if (flushCommitLogTimed) {
                         Thread.sleep(interval);
                     } else {
+                        // 这里只等待了几百毫秒，所以等于没有锁上
                         this.waitForRunning(interval);
                     }
 
