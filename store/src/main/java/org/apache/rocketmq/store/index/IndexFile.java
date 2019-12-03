@@ -122,22 +122,22 @@ public class IndexFile {
                     IndexHeader.INDEX_HEADER_SIZE + this.hashSlotNum * hashSlotSize
                         + this.indexHeader.getIndexCount() * indexSize;
 
-                this.mappedByteBuffer.putInt(absIndexPos, keyHash);
-                this.mappedByteBuffer.putLong(absIndexPos + 4, phyOffset);
-                this.mappedByteBuffer.putInt(absIndexPos + 4 + 8, (int) timeDiff);
-                this.mappedByteBuffer.putInt(absIndexPos + 4 + 8 + 4, slotValue);
+                this.mappedByteBuffer.putInt(absIndexPos, keyHash);// message key的hash值
+                this.mappedByteBuffer.putLong(absIndexPos + 4, phyOffset); // message在commitlog的物理偏移量
+                this.mappedByteBuffer.putInt(absIndexPos + 4 + 8, (int) timeDiff);// message的落盘（commitlog）时间与index文件header中beginTimestamp的差值
+                this.mappedByteBuffer.putInt(absIndexPos + 4 + 8 + 4, slotValue);// 相同hash值的上一个key的index，如果为0，则表示是链头
 
-                this.mappedByteBuffer.putInt(absSlotPos, this.indexHeader.getIndexCount());
+                this.mappedByteBuffer.putInt(absSlotPos, this.indexHeader.getIndexCount());// 储存索引值到hashslot中
 
                 if (this.indexHeader.getIndexCount() <= 1) {
-                    this.indexHeader.setBeginPhyOffset(phyOffset);
-                    this.indexHeader.setBeginTimestamp(storeTimestamp);
+                    this.indexHeader.setBeginPhyOffset(phyOffset);// 设置该索引文件第一个message在commitlog的物理偏移量
+                    this.indexHeader.setBeginTimestamp(storeTimestamp);// 索引文件第一个message的落盘时间
                 }
 
-                this.indexHeader.incHashSlotCount();
-                this.indexHeader.incIndexCount();
-                this.indexHeader.setEndPhyOffset(phyOffset);
-                this.indexHeader.setEndTimestamp(storeTimestamp);
+                this.indexHeader.incHashSlotCount();// hashslot数量+1
+                this.indexHeader.incIndexCount();// 索引数量+1
+                this.indexHeader.setEndPhyOffset(phyOffset);// 最后一个message在commitlog的物理偏移量
+                this.indexHeader.setEndTimestamp(storeTimestamp);// 最后一个message的落盘时间
 
                 return true;
             } catch (Exception e) {
